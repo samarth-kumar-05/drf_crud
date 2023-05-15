@@ -1,0 +1,180 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="Description" content="Enter your description here"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<title>Products</title>
+</head>
+<body>
+    <div class="container-fluid py-4">
+        <div class="row mb-4">
+          <div class="col-lg-8 mx-auto text-center">
+            <h1 class="display-4">Django AJAX API CRUD Operations</h1>
+            <p class="lead mb-0">A Django Rest Framework and Ajax based Product Inventory for Creating, Reading, Updating <br> & Deleting Product Information</p>
+          </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <table id="Product-Records" class="table table-bordered">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Product Name</th>
+                            <th scope="col">Category</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Price Per Unit (Ksh.)</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">
+                    Add Product
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Product Modal -->
+    <div class="container">        
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Product</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="addProduct" action="">
+                            {% csrf_token %}
+                            <input type="hidden" id="Myid" value="">
+                            <div class="form-group mb-3">
+                            <label for="p-name">Product Name</label>
+                            <input type="text" class="form-control" id="p-name" name="name" placeholder="Product Name" value="" required>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="p-category">Category</label>
+                                <select class="form-control form-select" aria-placeholder="Category" id="p-category" name="category" value="" required>
+                                    <option selected disabled>Category</option>
+                                    <option value="Electronics">Electronics</option>
+                                    <option value="Furniture">Furniture</option>
+                                    <option value="Toys">Toys</option>
+                                    <option value="Hardware">Hardware</option>
+                                    <option value="Medicine">Medicine</option>
+                                    <option value="Groceries">Groceries</option>
+                                </select>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="p-quantity">Quantity</label>
+                                <input type="number" class="form-control" id="p-quantity" name="quantity" placeholder="Quantity" value="" required>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="p-price">Price</label>
+                                <input type="number" class="form-control" id="p-price" name="price" placeholder="Price" value="" required>
+                            </div>
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-primary btn-sm" id="p-create">Save changes</button>
+                                <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Product Modal -->
+    <div class="container">
+        <div class="modal fade" id="editProduct" tabindex="-1" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Product</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="editProduct" action="">
+                            {% csrf_token %}
+                            <input type="hidden" id="Myid" value="">
+                            <div class="form-group mb-3">
+                            <label for="p-name">Product Name</label>
+                            <input type="text" class="form-control" id="p-name" name="name" placeholder="Product Name" value="" required>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="p-category">Category</label>
+                                <select class="form-control form-select" aria-placeholder="Category" id="p-category" name="category" value="" required>
+                                    <option selected disabled>Category</option>
+                                    <option value="Electronics">Electronics</option>
+                                    <option value="Furniture">Furniture</option>
+                                    <option value="Toys">Toys</option>
+                                    <option value="Hardware">Hardware</option>
+                                    <option value="Medicine">Medicine</option>
+                                    <option value="Groceries">Groceries</option>
+                                </select>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="p-quantity">Quantity</label>
+                                <input type="number" class="form-control" id="p-quantity" name="quantity" placeholder="Quantity" value="" required>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="p-price">Price</label>
+                                <input type="number" class="form-control" id="p-price" name="price" placeholder="Price" value="" required>
+                            </div>
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-primary btn-sm" id="p-edit">Save changes</button>
+                                <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Product Modal -->
+    <div class="container">
+        <div class="modal fade" id="deleteProduct" tabindex="-1" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Delete Product</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="deleteProduct" action="">
+                            <input type="hidden" id="Myid" name="id" value="">
+                            <p>Are you sure you want to delete this Product?</p>
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-danger btn-sm" id="p-delete">Delete Product</button>
+                                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
+<script src={% static "js/script.js" %}></script>
+</body>
+</html>
